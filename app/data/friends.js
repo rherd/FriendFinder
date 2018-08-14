@@ -1,5 +1,5 @@
 // DATA
-// Creating an array to hold the survey data that is used to match friends; starting with dummy data
+// Dummy friends data
 var friendArray = [
 	{
 		name: "Alex",

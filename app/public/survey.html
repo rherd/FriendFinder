@@ -26,6 +26,7 @@
             <div class="form-group">
                 <label for="name">You prefer to have a dog at your house.</label>
                 <select class="form-control questions" id="question1">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -36,6 +37,7 @@
             <div class="form-group">
                 <label for="name">You think that cereal should be poured first, and not milk.</label>
                 <select class="form-control questions" id="question2">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -46,6 +48,7 @@
             <div class="form-group">
                 <label for="name">You have some sort of religious belief system.</label>
                 <select class="form-control questions" id="question3">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -56,6 +59,7 @@
             <div class="form-group">
                 <label for="name">You like pineapple on your pizza.</label>
                 <select class="form-control questions" id="question4">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -66,7 +70,8 @@
             <div class="form-group">
                 <label for="name">You think that tattoos are unacceptable in the workplace.</label>
                 <select class="form-control questions" id="question5">
-                    <option>1 (Strongly Disagree)</option>
+                    <option value="" disabled selected>Select an option!</option>
+                    option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
@@ -76,6 +81,7 @@
             <div class="form-group">
                 <label for="name">You prefer liquor to beer.</label>
                 <select class="form-control questions" id="question6">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -86,6 +92,7 @@
             <div class="form-group">
                 <label for="name">You think that intelligence is more attractive than just outward appearances.</label>
                 <select class="form-control questions" id="question7">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -96,6 +103,7 @@
             <div class="form-group">
                 <label for="name">You regularly challenge yourself to try new things.</label>
                 <select class="form-control questions" id="question8">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -106,6 +114,7 @@
             <div class="form-group">
                 <label for="name">You liked the Star Wars prequel trilogy.</label>
                 <select class="form-control questions" id="question9">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -116,6 +125,7 @@
             <div class="form-group">
                 <label for="name">You agreed with the outcome of the last U.S. presidential election.</label>
                 <select class="form-control questions" id="question10">
+                    <option value="" disabled selected>Select an option!</option>
                     <option>1 (Strongly Disagree)</option>
                     <option>2</option>
                     <option>3</option>
@@ -190,128 +200,197 @@
         var friend;
         /**********************************************/
         // FUNCTIONS
-        // Using jQuery to download data from the server in order to match scores
+        // Start up function to get the friends list from the friends api
         var start = function () {
             // Getting the location of the root page
             var currentURL = window.location.origin;
-            // Clearing the array holding the potential friend match scores
+            // destroy array of comparisons
             compArr.length = 0;
-            // Using a GET command to get the requested data
+            // Using a GET command to get the the friends list
             $.get(currentURL + "/api/friends", function (friendArr) {
                 for (var i = 0; i < friendArr.length; i++) {
                     console.log(friendArr[i].name);
                 }
-                // Calling the calcDiff() function
+                // Calling the calcDiff() to perform our difference calculations between my answers to the survey and the data stored in the api
                 calcDiff(friendArr);
             });
         };
 
 
         var calcDiff = function (friendArr) {
-            // Storing the user's responses in a variable
-            var userAns = friendArr[friendArr.length - 1];
-            // Looping through each potential friend's answers
+            // myAnswers will be the last object in the array of friends, since we pushed it below
+            var myAnswers = friendArr[friendArr.length - 1];
+            // start with the first friend list, loop through until the end, store each object in eachFriend so we can perform operations on it
             for (var i = 0; i < friendArr.length - 1; i++) {
-                friend = friendArr[i];
-                // Calculating the diffArr for each question between 1 friend & and the user's surveys
-                var matchScore = function (friend) {
-                    for (var i = 0; i < userAns.scores.length; i++) {
-                        diffArr[i] = Math.abs(parseInt(userAns.scores[i]) - parseInt(friend.scores[i]));
+                eachFriend = friendArr[i];
+                // use findMatch to calculate differences between the chosen friend and myAnswers
+                var findMatch = function (eachFriend) {
+                    // for each score
+                    for (var i = 0; i < myAnswers.scores.length; i++) {
+                        //store the difference between my score per question and the chosen eachFriend in this run
+                        diffArr[i] = Math.abs(parseInt(myAnswers.scores[i]) - parseInt(eachFriend.scores[i]));
                     }
-                    // Logging the diffArrs by question
-                    console.log(friend.name + "'s Diffs: " + diffArr);
-                    // Calculating the total diffArr
+                    // log the answers for refenerence/testing
+                    console.log(eachFriend.name + "'s Diffs: " + diffArr);
+                    // sum the total difference using reduce on the array
                     var sum = diffArr.reduce(add, 0);
-                    // Finding the sum of the diffArrs (i.e., summing each diffArr array)
+                    // function to return the sum 
                     function add(a, b) {
                         return a + b;
                     }
-                    // Logging the diffArr
+                    // log the sum of the values
                     console.log(sum);
-                    // Storing the diffArr in an array
+                    // push  the sum to our comparison array
                     compArr.push(sum);
                 };
-                // Calling the matchScore() function
-                matchScore(friend);
+                // call above findMatch function
+                findMatch(eachFriend);
             }
-            // Logging the array of total scores
+            // Logging the array of total scores for comparison
             console.log(compArr);
-            // Calculating the lowest score & logging the name of the match
 
+
+            // find the min score using min.apply, not sure if this is the best way to do it or not
             var minScore = Math.min.apply(Math, compArr);
+            // index friendArr to find the index of the minScore - this will be the friend we match with
             var matchName = friendArr[compArr.indexOf(minScore)].name;
+            //grab the photo from the friendArr as well
             var matchPhoto = friendArr[compArr.indexOf(minScore)].photo;
-            // Logging the lowest score and name of the corresponding best match
+            // console log for reference
             console.log(minScore);
             console.log(matchName);
-            // Adding the best match's name and photo to the modal
+            // put these back in the DOM using jquery
             $("#myMatchName").text(matchName);
             $("#myMatchImg").attr("src", matchPhoto);
         };
         /**********************************************/
-        // MAIN PROCESSES
-        // Creating the front-end JS that POSTS the form data to the express server
+        // Submit/Fire
+        // click even on submit fires the functions listed above
         $(".submit").on("click", function (event) {
-            // Getting the location of the root page
+            // Get location of origin
             var currentURL = window.location.origin;
 
             event.preventDefault();
-            // Grabbing the form elements
-            var newFriend = {
-                name: $("#name").val().trim(),
-                photo: $("#photo").val().trim(),
-                scores: [$("#question1").val().trim(),
-                $("#question2").val().trim(),
-                $("#question3").val().trim(),
-                $("#question4").val().trim(),
-                $("#question5").val().trim(),
-                $("#question6").val().trim(),
-                $("#question7").val().trim(),
-                $("#question8").val().trim(),
-                $("#question9").val().trim(),
-                $("#question10").val().trim()
-                ]
-            };
-            // Logging the user's answers
-            console.log(newFriend);
-            // Creating the function for callback??
-            $.post(currentURL + "/api/friends", newFriend,
-                function (data) {
-                    // If the form is successfully submitted, find the best match
-                    if (data) {
-                        console.log("Form submitted.");
-                        // Calling the start() function
-                        start();
+            // grab elements from new entry
+
+            //validate that the user entered a valid value in each field.
+
+            if (!$("#name").val()) {
+                $("#name").val("Please enter a name!");
+                $("#myMatchName").text("Please enter a name!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#photo").val()) {
+                $("#photo").val("Please enter a URL!");
+                $("#myMatchName").text("Please enter a URL!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question1").val()) {
+                $("#question1").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 1!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question2").val()) {
+                $("#question2").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 2!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question3").val()) {
+                $("#question3").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 3!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question4").val()) {
+                $("#question4").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 4!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question5").val()) {
+                $("#question5").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 5!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question6").val()) {
+                $("#question6").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 6!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question7").val()) {
+                $("#question7").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 7!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question8").val()) {
+                $("#question8").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 8!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question9").val()) {
+                $("#question9").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 9!");
+                $("#myMatchImg").hide();
+            }
+            else if (!$("#question10").val()) {
+                $("#question10").val("Please pick an option below!");
+                $("#myMatchName").text("Please select an option for question 10!");
+                $("#myMatchImg").hide();
+            }
+            else {
+
+                var addEntry = {
+                    name: $("#name").val().trim(),
+                    photo: $("#photo").val().trim(),
+                    scores: [
+                        $("#question1").val().trim(),
+                        $("#question2").val().trim(),
+                        $("#question3").val().trim(),
+                        $("#question4").val().trim(),
+                        $("#question5").val().trim(),
+                        $("#question6").val().trim(),
+                        $("#question7").val().trim(),
+                        $("#question8").val().trim(),
+                        $("#question9").val().trim(),
+                        $("#question10").val().trim()
+                    ]
+                };
+
+
+                // console new entry for reference
+                console.log(addEntry);
+                // post submitted entry to the api friends list
+                $.post(currentURL + "/api/friends", addEntry,
+                    function (data) {
+                        // If the form is successfully submitted, find the best match
+                        if (data) {
+                            console.log("Form submitted.");
+                            // Calling the start() function
+                            start();
+                        }
+                        // error handling
+                        else {
+                            alert("Uh oh. Something happened.");
+                        }
+                        // Clearing the form when submitting
+                        $("#name").val("");
+                        $("#photo").val("");
+                        $("#question1").val("");
+                        $("#question2").val("");
+                        $("#question3").val("");
+                        $("#question4").val("");
+                        $("#question5").val("");
+                        $("#question6").val("");
+                        $("#question7").val("");
+                        $("#question8").val("");
+                        $("#question9").val("");
+                        $("#question10").val("");
                     }
-                    // If there is an error, let the user know
-                    else {
-                        alert("Oops! Something went wrong.");
-                    }
-                    // Clearing the form when submitting
-                    $("#name").val("");
-                    $("#photo").val("");
-                    $("#question1").val("");
-                    $("#question2").val("");
-                    $("#question3").val("");
-                    $("#question4").val("");
-                    $("#question5").val("");
-                    $("#question6").val("");
-                    $("#question7").val("");
-                    $("#question8").val("");
-                    $("#question9").val("");
-                    $("#question10").val("");
-                }
-            );
+                );
+            }
         });
     </script>
     <style>
         body {
-            background-color: #e9ec08 !important;
-        }
-
-        .main-jumbo {
-            background-image: URL("../images/friends.jpg");
-            background-size: cover;
+            background-color: #e95e0e !important;
         }
 
         .survey-btn {
@@ -320,6 +399,10 @@
 
         .questions {
             width: 180px;
+        }
+
+        .survey-btn {
+            color: white;
         }
     </style>
 </body>
