@@ -11,7 +11,7 @@ module.exports = function(app) {
 	  res.sendFile(path.join(__dirname, "/../public/survey.html"));
 	});
 
-	// Route that sends the user to the home page //// Instructions say this should be a 'USE' request??
+	// gets the home page
 	app.get("/",function(req, res) {
 	  res.sendFile(path.join(__dirname, "/../public/home.html"));
 	});
