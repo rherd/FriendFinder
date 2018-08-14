@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Friend Finder | Survey</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./assets/css/style.css"> -->
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <legend>Friend Finder Survey!</legend>
+            <div class="form-group">
+                <label for="name">Name (Required)</label>
+                <input type="text" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="photo">Link to Photo Image</label>
+                <input type="text" class="form-control" id="photo" placeholder="Photo">
+            </div>
+            <div class="form-group">
+                <label for="name">You prefer to have a dog at your house.</label>
+                <select class="form-control questions" id="question1">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You think that cereal should be poured first, and not milk.</label>
+                <select class="form-control questions" id="question2">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You have some sort of religious belief system.</label>
+                <select class="form-control questions" id="question3">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You like pineapple on your pizza.</label>
+                <select class="form-control questions" id="question4">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You think that tattoos are unacceptable in the workplace.</label>
+                <select class="form-control questions" id="question5">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You prefer liquor to beer.</label>
+                <select class="form-control questions" id="question6">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You think that intelligence is more attractive than just outward appearances.</label>
+                <select class="form-control questions" id="question7">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You regularly challenge yourself to try new things.</label>
+                <select class="form-control questions" id="question8">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You liked the Star Wars prequel trilogy.</label>
+                <select class="form-control questions" id="question9">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">You agreed with the outcome of the last U.S. presidential election.</label>
+                <select class="form-control questions" id="question10">
+                    <option>1 (Strongly Disagree)</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 (Strongly Agree)</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default submit survey-btn" data-toggle="modal" data-target="#myModal">Submit</button>
+        </form>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <!-- <span aria-hidden="true">&times;</span> -->
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Your Best Match!</h4>
+                    </div>
+
+                    <div class="modal-body" id="bestMatch">
+                        <h2 class="text-center" id="myMatchName"></h2>
+                        <img id="myMatchImg" class="img-responsive center-block" style="height:200px" alt="Responsive image">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container" id="footer-text">
+            <br>
+            <p class="text-muted">
+                <a href="/">Home</a> |
+                <a href="/api/friends" target="_blank">API Friends List</a> |
+                <a href="https://github.com/rherd/FriendFinder" target="_blank">GitHub Repo</a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <!-- have to use 3.3.7 because v4 doesn't handle modal fade in properly -->
+    <!-- using this for the modal fade in piece -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--*****************************************-->
+    <!-- BELOW CODE HANDLES HOW FORM DATA IS SENT TO & RETRIEVED FROM THE SERVER-->
+    <script type="text/javascript">
+
+        $(window).on("load", (function () {
+            // Run code
+            $("#name").val("");
+            $("#photo").val("");
+            $("#question1").val("");
+            $("#question2").val("");
+            $("#question3").val("");
+            $("#question4").val("");
+            $("#question5").val("");
+            $("#question6").val("");
+            $("#question7").val("");
+            $("#question8").val("");
+            $("#question9").val("");
+            $("#question10").val("");
+        }));
+        // VARIABLES
+        var diffArr = [];
+        var compArr = [];
+        var friend;
+        /**********************************************/
+        // FUNCTIONS
+        // Using jQuery to download data from the server in order to match scores
+        var start = function () {
+            // Getting the location of the root page
+            var currentURL = window.location.origin;
+            // Clearing the array holding the potential friend match scores
+            compArr.length = 0;
+            // Using a GET command to get the requested data
+            $.get(currentURL + "/api/friends", function (friendArr) {
+                for (var i = 0; i < friendArr.length; i++) {
+                    console.log(friendArr[i].name);
+                }
+                // Calling the calcDiff() function
+                calcDiff(friendArr);
+            });
+        };
+
+
+        var calcDiff = function (friendArr) {
+            // Storing the user's responses in a variable
+            var userAns = friendArr[friendArr.length - 1];
+            // Looping through each potential friend's answers
+            for (var i = 0; i < friendArr.length - 1; i++) {
+                friend = friendArr[i];
+                // Calculating the diffArr for each question between 1 friend & and the user's surveys
+                var matchScore = function (friend) {
+                    for (var i = 0; i < userAns.scores.length; i++) {
+                        diffArr[i] = Math.abs(parseInt(userAns.scores[i]) - parseInt(friend.scores[i]));
+                    }
+                    // Logging the diffArrs by question
+                    console.log(friend.name + "'s Diffs: " + diffArr);
+                    // Calculating the total diffArr
+                    var sum = diffArr.reduce(add, 0);
+                    // Finding the sum of the diffArrs (i.e., summing each diffArr array)
+                    function add(a, b) {
+                        return a + b;
+                    }
+                    // Logging the diffArr
+                    console.log(sum);
+                    // Storing the diffArr in an array
+                    compArr.push(sum);
+                };
+                // Calling the matchScore() function
+                matchScore(friend);
+            }
+            // Logging the array of total scores
+            console.log(compArr);
+            // Calculating the lowest score & logging the name of the match
+
+            var minScore = Math.min.apply(Math, compArr);
+            var matchName = friendArr[compArr.indexOf(minScore)].name;
+            var matchPhoto = friendArr[compArr.indexOf(minScore)].photo;
+            // Logging the lowest score and name of the corresponding best match
+            console.log(minScore);
+            console.log(matchName);
+            // Adding the best match's name and photo to the modal
+            $("#myMatchName").text(matchName);
+            $("#myMatchImg").attr("src", matchPhoto);
+        };
+        /**********************************************/
+        // MAIN PROCESSES
+        // Creating the front-end JS that POSTS the form data to the express server
+        $(".submit").on("click", function (event) {
+            // Getting the location of the root page
+            var currentURL = window.location.origin;
+
+            event.preventDefault();
+            // Grabbing the form elements
+            var newFriend = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [$("#question1").val().trim(),
+                $("#question2").val().trim(),
+                $("#question3").val().trim(),
+                $("#question4").val().trim(),
+                $("#question5").val().trim(),
+                $("#question6").val().trim(),
+                $("#question7").val().trim(),
+                $("#question8").val().trim(),
+                $("#question9").val().trim(),
+                $("#question10").val().trim()
+                ]
+            };
+            // Logging the user's answers
+            console.log(newFriend);
+            // Creating the function for callback??
+            $.post(currentURL + "/api/friends", newFriend,
+                function (data) {
+                    // If the form is successfully submitted, find the best match
+                    if (data) {
+                        console.log("Form submitted.");
+                        // Calling the start() function
+                        start();
+                    }
+                    // If there is an error, let the user know
+                    else {
+                        alert("Oops! Something went wrong.");
+                    }
+                    // Clearing the form when submitting
+                    $("#name").val("");
+                    $("#photo").val("");
+                    $("#question1").val("");
+                    $("#question2").val("");
+                    $("#question3").val("");
+                    $("#question4").val("");
+                    $("#question5").val("");
+                    $("#question6").val("");
+                    $("#question7").val("");
+                    $("#question8").val("");
+                    $("#question9").val("");
+                    $("#question10").val("");
+                }
+            );
+        });
+    </script>
+    <style>
+        body {
+            background-color: #e9ec08 !important;
+        }
+
+        .main-jumbo {
+            background-image: URL("../images/friends.jpg");
+            background-size: cover;
+        }
+
+        .survey-btn {
+            background-color: #0d51e4;
+        }
+
+        .questions {
+            width: 180px;
+        }
+    </style>
+</body>
+
+</html>
